@@ -2,13 +2,18 @@ import pytest
 from vibium import browser_sync
 
 
-def test_simple_pass():    
-    vibe = browser_sync.launch()
-    vibe.go("https://dev300645.service-now.com/")
+def test_simple_pass():
+    from vibium import browser_sync
+    import os
+    from dotenv import load_dotenv
 
-    vibe.find("all").click()
-    vibe.find("all").type("admin")
+    load_dotenv()    
+    
+    vibe = browser_sync.launch()
+    vibe.go(os.getenv("SNOW_URL"))
+
+    vibe.find("user name").type(os.getenv("SNOW_USERNAME"))
+    vibe.find("password").type(os.getenv("SNOW_PASSWORD"))
+    vibe.find("login").click()    
 
     vibe.quit()
-
-
